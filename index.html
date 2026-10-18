@@ -5,144 +5,310 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Form Pendaftaran</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    /* 1. Reset: hilangkan margin/padding bawaan browser */
-    * {
+    /* 1. Palet warna: satu tempat untuk semua warna */
+    :root {
+      --kertas: #e8f0ed;
+      --garis-kisi: #cddcd6;
+      --tinta: #0f2a2e;
+      --tinta-lembut: #4a6366;
+      --daun: #1f7a5c;
+      --daun-muda: #d6ece3;
+      --kuning: #f2b544;
+      --putih: #ffffff;
+      --galat: #b3261e;
+
+      --font-judul: "Bricolage Grotesque", "Segoe UI", Arial, sans-serif;
+      --font-isi: "DM Sans", "Segoe UI", Arial, sans-serif;
+    }
+
+    /* 2. Reset */
+    *,
+    *::before,
+    *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: "Segoe UI", Arial, sans-serif;
     }
 
-    /* 2. Latar halaman, form diletakkan di tengah */
+    /* 3. Latar seperti kertas milimeter, form di tengah */
     body {
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      padding: 20px;
+      padding: 32px 20px;
+      font-family: var(--font-isi);
+      color: var(--tinta);
+      background-color: var(--kertas);
+      background-image:
+        linear-gradient(var(--garis-kisi) 1px, transparent 1px),
+        linear-gradient(90deg, var(--garis-kisi) 1px, transparent 1px);
+      background-size: 28px 28px;
     }
 
-    /* 3. Kartu putih pembungkus form */
+    /* 4. Kartu form dengan bayangan tegas */
     .card {
-      background: #ffffff;
       width: 100%;
-      max-width: 420px;
-      padding: 32px;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      max-width: 460px;
+      padding: 36px 32px 32px;
+      background: var(--putih);
+      border: 2px solid var(--tinta);
+      border-radius: 14px;
+      box-shadow: 8px 8px 0 var(--tinta);
     }
 
-    h2 {
-      text-align: center;
-      color: #333;
-      margin-bottom: 24px;
+    .card-header {
+      margin-bottom: 28px;
     }
 
-    /* 4. Jarak antar kolom isian */
+    h1 {
+      font-family: var(--font-judul);
+      font-size: 2rem;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .intro {
+      margin-top: 8px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--tinta-lembut);
+    }
+
+    /* 5. Susunan kolom isian */
     .form-group {
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+    }
+
+    .baris {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
 
     label {
       display: block;
       margin-bottom: 6px;
+      font-size: 0.9rem;
       font-weight: 600;
-      color: #444;
-      font-size: 14px;
     }
 
-    /* 5. Gaya semua kolom isian */
+    /* 6. Gaya semua kolom isian */
     input,
     select,
     textarea {
       width: 100%;
-      padding: 10px 12px;
-      border: 2px solid #ddd;
+      padding: 11px 14px;
+      font: inherit;
+      font-size: 0.95rem;
+      color: var(--tinta);
+      background: var(--putih);
+      border: 2px solid var(--tinta);
       border-radius: 8px;
-      font-size: 14px;
-      transition: border-color 0.3s, box-shadow 0.3s;
+      transition: box-shadow 0.15s, background-color 0.15s;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #8a9c9e;
     }
 
     textarea {
       resize: vertical;
-      min-height: 90px;
+      min-height: 96px;
+      line-height: 1.5;
     }
 
-    /* 6. Efek saat kolom diklik */
-    input:focus,
-    select:focus,
-    textarea:focus {
-      outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
-    }
-
-    /* 7. Tombol kirim */
-    button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      background: #667eea;
-      color: #fff;
-      font-size: 16px;
-      font-weight: 600;
+    /* Panah kustom untuk pilihan prodi */
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      padding-right: 40px;
       cursor: pointer;
-      transition: background 0.3s, transform 0.1s;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'><path d='M1 1l6 6 6-6' fill='none' stroke='%230f2a2e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
     }
 
-    button:hover {
-      background: #5568d3;
+    /* 7. Efek saat kolom diklik: terlihat jelas, juga untuk pengguna keyboard */
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: none;
+      background-color: var(--daun-muda);
+      box-shadow: 4px 4px 0 var(--daun);
     }
 
-    button:active {
-      transform: scale(0.98);
+    /* Tanda untuk isian yang belum benar, muncul setelah diisi */
+    input:user-invalid,
+    textarea:user-invalid {
+      border-color: var(--galat);
+    }
+
+    /* 8. Kolom password + tombol lihat/sembunyikan */
+    .kolom-password {
+      position: relative;
+    }
+
+    .kolom-password input {
+      padding-right: 80px;
+    }
+
+    .lihat {
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      transform: translateY(-50%);
+      width: auto;
+      padding: 6px 10px;
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--daun);
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      box-shadow: none;
+      cursor: pointer;
+    }
+
+    .lihat:hover {
+      background: var(--daun-muda);
+      transform: translateY(-50%);
+      box-shadow: none;
+    }
+
+    .lihat:active {
+      transform: translateY(-50%);
+    }
+
+    .lihat:focus-visible {
+      outline: 2px solid var(--daun);
+      outline-offset: 1px;
+    }
+
+    /* 9. Tombol kirim */
+    .kirim {
+      width: 100%;
+      margin-top: 8px;
+      padding: 14px;
+      font: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--putih);
+      background: var(--daun);
+      border: 2px solid var(--tinta);
+      border-radius: 10px;
+      box-shadow: 4px 4px 0 var(--tinta);
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s, background-color 0.15s;
+    }
+
+    .kirim:hover {
+      background: #196a50;
+    }
+
+    .kirim:active {
+      transform: translate(4px, 4px);
+      box-shadow: 0 0 0 var(--tinta);
+    }
+
+    .kirim:focus-visible {
+      outline: 3px solid var(--kuning);
+      outline-offset: 3px;
+    }
+
+    /* 10. Layar kecil */
+    @media (max-width: 480px) {
+      .card {
+        padding: 28px 20px 24px;
+        box-shadow: 6px 6px 0 var(--tinta);
+      }
+
+      h1 {
+        font-size: 1.7rem;
+      }
+
+      .baris {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="card">
-    <h2>Ini Adalah Form Pendaftaran</h2>
+  <main class="card">
+    <header class="card-header">
+      <h1>Form pendaftaran</h1>
+      <p class="intro">Isi data di bawah ini untuk mendaftar. Semua kolom bertanda wajib diisi.</p>
+    </header>
 
     <form action="">
       <div class="form-group">
-        <label for="nama">Nama</label>
-        <input id="nama" type="text" placeholder="Masukkan nama lengkap">
+        <label for="nama">Nama lengkap</label>
+        <input id="nama" name="nama" type="text" placeholder="Masukkan nama lengkap" autocomplete="name" required>
+      </div>
+
+      <div class="baris">
+        <div class="form-group">
+          <label for="umur">Umur</label>
+          <input id="umur" name="umur" type="number" min="15" max="99" placeholder="Contoh: 19" required>
+        </div>
+
+        <div class="form-group">
+          <label for="angkatan">Angkatan</label>
+          <input id="angkatan" name="angkatan" type="text" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="Contoh: 2025" required>
+        </div>
       </div>
 
       <div class="form-group">
-        <label for="umur">Umur</label>
-        <input id="umur" type="number" placeholder="Contoh: 19">
-      </div>
-
-      <div class="form-group">
-        <label for="prodi">Prodi</label>
-        <select id="prodi">
+        <label for="prodi">Program studi</label>
+        <select id="prodi" name="prodi">
           <option value="Matematika">Matematika</option>
           <option value="Biologi">Biologi</option>
         </select>
       </div>
 
       <div class="form-group">
-        <label for="angkatan">Angkatan</label>
-        <input id="angkatan" type="text" placeholder="Contoh: 2025">
-      </div>
-
-      <div class="form-group">
         <label for="password">Password</label>
-        <input id="password" type="password" placeholder="Masukkan password">
+        <div class="kolom-password">
+          <input id="password" name="password" type="password" minlength="6" placeholder="Minimal 6 karakter" autocomplete="new-password" required>
+          <button class="lihat" type="button" id="tombol-lihat" aria-controls="password" aria-pressed="false">Lihat</button>
+        </div>
       </div>
 
       <div class="form-group">
         <label for="keterangan">Keterangan</label>
-        <textarea id="keterangan" placeholder="Tulis keterangan tambahan"></textarea>
+        <textarea id="keterangan" name="keterangan" placeholder="Tulis keterangan tambahan (boleh dikosongkan)"></textarea>
       </div>
 
-      <button type="submit">Kirim</button>
+      <button class="kirim" type="submit">Daftar sekarang</button>
     </form>
-  </div>
+  </main>
+
+  <script>
+    // Tombol untuk menampilkan atau menyembunyikan password
+    const kolom = document.getElementById("password");
+    const tombol = document.getElementById("tombol-lihat");
+
+    tombol.addEventListener("click", () => {
+      const tersembunyi = kolom.type === "password";
+      kolom.type = tersembunyi ? "text" : "password";
+      tombol.textContent = tersembunyi ? "Sembunyikan" : "Lihat";
+      tombol.setAttribute("aria-pressed", String(tersembunyi));
+    });
+  </script>
 </body>
 </html>
