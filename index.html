@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Pendaftaran</title>
+
+  <style>
+    /* 1. Reset: hilangkan margin/padding bawaan browser */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    /* 2. Latar halaman, form diletakkan di tengah */
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 20px;
+    }
+
+    /* 3. Kartu putih pembungkus form */
+    .card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 420px;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 24px;
+    }
+
+    /* 4. Jarak antar kolom isian */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #444;
+      font-size: 14px;
+    }
+
+    /* 5. Gaya semua kolom isian */
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    /* 6. Efek saat kolom diklik */
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    }
+
+    /* 7. Tombol kirim */
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #667eea;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.1s;
+    }
+
+    button:hover {
+      background: #5568d3;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h2>Ini Adalah Form Pendaftaran</h2>
+
+    <form action="">
+      <div class="form-group">
+        <label for="nama">Nama</label>
+        <input id="nama" type="text" placeholder="Masukkan nama lengkap">
+      </div>
+
+      <div class="form-group">
+        <label for="umur">Umur</label>
+        <input id="umur" type="number" placeholder="Contoh: 19">
+      </div>
+
+      <div class="form-group">
+        <label for="prodi">Prodi</label>
+        <select id="prodi">
+          <option value="Matematika">Matematika</option>
+          <option value="Biologi">Biologi</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="angkatan">Angkatan</label>
+        <input id="angkatan" type="text" placeholder="Contoh: 2025">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Masukkan password">
+      </div>
+
+      <div class="form-group">
+        <label for="keterangan">Keterangan</label>
+        <textarea id="keterangan" placeholder="Tulis keterangan tambahan"></textarea>
+      </div>
+
+      <button type="submit">Kirim</button>
+    </form>
+  </div>
+</body>
+</html>
